@@ -4,7 +4,7 @@
 
 With a few clicks, you can deploy Forem to Render with the following components:
 
-- Rails web service that runs the Ruby on Rails app
+- Web service that runs the Ruby on Rails app
 - Sidekiq worker that handles background jobs
 - Elasticsearch instance for in app searching
 - [Redis](https://render.com/docs/deploy-redis) instance to store cache data
@@ -14,8 +14,8 @@ With a few clicks, you can deploy Forem to Render with the following components:
 
 ### Prerequisites
 
-Forem requires Sendgrid for sending transactional emails to setup the admin
-account through the browser. See the [Sendgrid docs](https://sendgrid.com/docs/ui/account-and-settings/api-keys/#creating-an-api-key)
+Forem uses Sendgrid to verify the admin account's email.
+See the [Sendgrid docs](https://sendgrid.com/docs/ui/account-and-settings/api-keys/#creating-an-api-key)
 for help creating an SMTP Relay API key.
 
 ### One Click
