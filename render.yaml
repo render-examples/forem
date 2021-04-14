@@ -42,7 +42,7 @@ services:
     dockerfilePath: ./forem/Dockerfile
     dockerContext: ./forem
     dockerCommand: ./scripts/sidekiq.sh
-    plan: starter
+    plan: starter plus
     envVars:
       - fromGroup: rails
       - key: REDIS_HOST
