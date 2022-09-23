@@ -43,6 +43,7 @@ services:
     dockerContext: ./forem
     dockerCommand: ./scripts/sidekiq.sh
     plan: starter plus
+    autoDeploy: false
     envVars:
       - fromGroup: rails
       - key: REDIS_HOST
@@ -76,6 +77,7 @@ services:
     dockerContext: ./forem
     dockerCommand: ./scripts/rails.sh
     plan: starter plus
+    autoDeploy: false
     disk:
       name: data
       mountPath: /opt/apps/forem/public/uploads
