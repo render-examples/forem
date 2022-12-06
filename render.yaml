@@ -42,7 +42,7 @@ services:
     dockerfilePath: ./forem/Dockerfile
     dockerContext: ./forem
     dockerCommand: ./scripts/sidekiq.sh
-    plan: starter plus
+    plan: standard
     autoDeploy: false
     envVars:
       - fromGroup: rails
@@ -76,7 +76,7 @@ services:
     dockerfilePath: ./forem/Dockerfile
     dockerContext: ./forem
     dockerCommand: ./scripts/rails.sh
-    plan: starter plus
+    plan: standard
     autoDeploy: false
     disk:
       name: data
