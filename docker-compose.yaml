@@ -1,0 +1,65 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:14.7
+    container_name: postgres
+    restart: always
+    networks:
+      - forem-network
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+  elasticsearch:
+    image: elasticsearch:7.16.3
+    container_name: elasticsearch
+    user: root
+    networks:
+      - forem-network
+    environment:
+      - cluster.name=${CLUSTER_NAME}
+      - discovery.type=single-node
+      - ELASTIC_USERNAME=${ELK_ROOT_USER}
+      - ELASTIC_PASSWORD=${ELK_ROOT_PASSWORD}
+      - xpack.security.enabled=false
+      - xpack.license.self_generated.type=${LICENSE}
+      - xpack.monitoring.enabled = false
+      - xpack.graph.enabled = false
+      - xpack.watcher.enabled = false
+      - bootstrap.memory_lock = true
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - ${ES_PORT}:9200
+    volumes:
+      - ./volumes/esdata:/usr/share/elasticsearch/data
+
+  redis:
+    image: redis:6-alpine
+    restart: always
+    container_name: redis
+    command: redis-server --requirepass $REDIS_PASSWORD --appendonly yes
+    networks:
+      - forem-network
+    volumes:
+      - ./volumes/redis:/data:rw,z
+    ports:
+      - '6379:6379'
+
+  # Docker Networks
+networks:
+  # All container connect in a network
+  forem-network:
+    driver: bridge
+
+volumes:
+  esdata:
+  redis:
