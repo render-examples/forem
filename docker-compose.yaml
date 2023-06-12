@@ -59,6 +59,7 @@ services:
     container_name: forem
     networks:
       - forem-network
+    command: [ "bundle", "exec", "rake","db:create"]
     environment:
       # Rails-specific stuff
       RAILS_ENV: ${RAILS_ENV}
@@ -81,6 +82,7 @@ services:
       AWS_UPLOAD_REGION: ${AWS_UPLOAD_REGION}
       MODE: ${MODE}
       SEEDS_MULTIPLIER: ${SEEDS_MULTIPLIER}
+
 
   # Docker Networks
 networks:
