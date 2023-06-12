@@ -54,6 +54,30 @@ services:
     ports:
       - '6379:6379'
 
+  forem:
+    image: quay.io/forem/forem:latest
+    environment:
+      # Rails-specific stuff
+      RAILS_ENV: ${RAILS_ENV}
+      DATABASE_URL: ${DATABASE_URL}
+      REDIS_URL: ${REDIS_URL}
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+      RAILS_SERVE_STATIC_FILES: ${RAILS_SERVE_STATIC_FILES}
+      RAILS_LOG_TO_STDOUT: ${RAILS_LOG_TO_STDOUT}
+      RAILS_MAX_THREADS: ${RAILS_MAX_THREADS}
+      LOG_LEVEL: ${LOG_LEVEL}
+      WEB_CONCURRENCY: ${WEB_CONCURRENCY}
+      # Forem-specific stuff
+      APP_PROTOCOL: ${APP_PROTOCOL}
+      APP_DOMAIN: ${APP_DOMAIN}
+      COMMUNITY_NAME: ${COMMUNITY_NAME}
+      FOREM_CREATOR_SECRET: ${FOREM_CREATOR_SECRET}
+      AWS_ID: ${AWS_ID}
+      AWS_SECRET: ${AWS_SECRET}
+      AWS_BUCKET_NAME: ${AWS_BUCKET_NAME}
+      AWS_UPLOAD_REGION: ${AWS_UPLOAD_REGION}
+
+
   # Docker Networks
 networks:
   # All container connect in a network
