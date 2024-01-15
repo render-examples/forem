@@ -9,33 +9,6 @@ services:
       mountPath: /var/lib/redis
       sizeGB: 10
 
-  - type: pserv
-    name: elasticsearch
-    dockerfilePath: ./elasticsearch/Dockerfile
-    dockerContext: ./elasticsearch
-    env: docker
-    plan: standard
-    disk:
-      name: esdata
-      mountPath: /usr/share/elasticsearch/data
-      sizeGB: 10
-    autoDeploy: false # so ES does not restart on a push to this repository.
-    envVars:
-    - key: ES_JAVA_OPTS
-      value: "-Xms512m -Xmx512m"
-    - key: discovery.type
-      value: single-node
-    - key: xpack.security.enabled
-      value: false
-    - key: xpack.monitoring.enabled
-      value: false
-    - key: xpack.graph.enabled
-      value: false
-    - key: xpack.watcher.enabled
-      value: false
-    - key: bootstrap.memory_lock
-      value: true
-
   - type: worker
     name: sidekiq
     env: docker
@@ -56,14 +29,6 @@ services:
           name: redis
           type: pserv
           property: port
-
-      - key: ELASTICSEARCH_HOST
-        fromService:
-          name: elasticsearch
-          type: pserv
-          property: host
-      - key: ELASTICSEARCH_PORT
-        value: 9200
 
       - key: DATABASE_URL
         fromDatabase:
@@ -94,14 +59,6 @@ services:
           name: redis
           type: pserv
           property: port
-
-      - key: ELASTICSEARCH_HOST
-        fromService:
-          name: elasticsearch
-          type: pserv
-          property: host
-      - key: ELASTICSEARCH_PORT
-        value: 9200
 
       - key: DATABASE_URL
         fromDatabase:
